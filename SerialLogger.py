@@ -179,7 +179,7 @@ with open(csv_file, mode='w', newline='') as file:
             transposed_array = combined_array.T
 
             # Iterate over rows in the transposed array and write to CSV
-            for row in transposed_array:
+            for row in combined_array:
                 csv_writer.writerow(row)
 
 
