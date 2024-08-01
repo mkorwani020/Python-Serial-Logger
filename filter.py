@@ -118,7 +118,7 @@ def vel_calc1(num):
     rows = shape[0]
     #dt = np.double(time_array[i]- time_array[i-1])
     for j in range(1, rows): #by columns (will be 5 times)
-        dy = data_array[j][num+1]-data_array[j-1][num+1]
+        dy = data_array[j][num]-data_array[j-1][num]
         dy = np.double(min(abs(dy),abs(dy+360),abs(dy-360)))
         vel_array[j][num] = np.double(dy/dt)/(360.0)
 
@@ -232,7 +232,7 @@ plot(netz_pos, 'Reinishaw 1', y2)
 
 plt.figure("pos-error")
 pos_err_array = np.empty_like(data_array)
-for i in [0,1,2,3,4]:
+for i in [0,1,2,4]:
     pos_err_array[:,i] = data_array[:,i]-data_array[:,2]
     plt.plot(time_array, pos_err_array[:,i], label = order_labels_dict[i])
 plt.legend()
@@ -250,4 +250,13 @@ for i in range(5):
     if(order_labels_dict[i] == "Zettlex"): w = 2
     plt.plot(time, moving_avrg(data_array[:,i],w), label=order_labels_dict[i])
 plt.legend()
+
+
+plt.figure('velocity')
+plt.ylabel('rev/s')
+for i in range(5):
+    plt.plot(time_array, vel_array[:,i], label=order_labels_dict[i])
+    plt.ylim((-10,10))
+plt.legend()
+
 plt.show()
